@@ -19,24 +19,16 @@ const pages = {
     template: './public/index.html',
     title: '首页'
   }
-  // test: {
-  //   entry: './src/pages/test/main.js',
-  //   template: './public/test.html',
-  //   title: '测试'
-  // },
-  // 'attendance-report': {
-  //   entry: './src/pages/attendance-report/main.js',
-  //   template: './public/attendance-report.html',
-  //   title: '考勤报表'
-  // }
 }
 
+// 设置多页配置
 function getPages() {
   const dirnames = fs.readdirSync('./src/pages')
   dirnames.map(dirname => {
     pages[dirname] = {
       entry: `./src/pages/${dirname}/main.js`,
       template: `./public/${dirname}.html`,
+      filename: `${dirname}.html`,
       title: dirname
     }
   })
@@ -45,8 +37,9 @@ function getPages() {
 getPages()
 
 module.exports = {
+  publicPath: process.env.VUE_APP_PUBLIC_PATH,
   devServer: {
-    open: true,
+    // open: true,
     port: port,
     overlay: {
       errors: false,
@@ -61,7 +54,7 @@ module.exports = {
         },
         // 转发请求时设置cookie
         onProxyReq(proxyReq) {
-          proxyReq.setHeader('cookie', 'JSESSIONID=C3390F7561653957A0F78C6EA2AADA6E')
+          proxyReq.setHeader('cookie', 'JSESSIONID=716EF6A3C077848239EF69AD0FD8F0BD')
         }
       }
     }
@@ -81,11 +74,27 @@ module.exports = {
       new webpack.DefinePlugin({
         pageNames: JSON.stringify(fs.readdirSync('./src/pages'))
       })
-    ]
+    ],
+    devtool: process.env.VUE_APP_SOURCE_MAP
   },
   chainWebpack(config) {
+    // 注入全局scss变量 global scss variables
+    const _variables = config.module.rule('scss').oneOfs.store
+    _variables.forEach(item => {
+      item
+        .use('sass-resources-loader')
+        .loader('sass-resources-loader')
+        .options({
+          resources: [
+            resolve('src/styles/_variables.scss'),
+            resolve('src/styles/_mixin.scss'),
+            resolve('src/styles/_colors.scss')
+          ]
+        })
+        .end()
+    })
+    // svg-icon 图标
     config.module.rule('svg').exclude.add(resolve('src/assets/icons')).end()
-
     config.module
       .rule('icons')
       .test(/\.svg$/)

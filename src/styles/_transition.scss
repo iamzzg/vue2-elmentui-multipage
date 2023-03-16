@@ -1,0 +1,85 @@
+// global transition css
+
+/* fade-transform */
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all 0.5s;
+}
+
+.fade-transform-enter {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* message-transform */
+.message-transform-leave-active,
+.message-transform-enter-active {
+  transition: all 0.5s;
+}
+
+.message-transform-enter,
+.message-transform-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* list */
+.list-leave-active {
+  position: absolute;
+}
+// .list-leave-to{
+//   z-index: -1;
+// }
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.list-enter-active,
+.list-leave-active,
+.list-move {
+  transition: all 0.8s;
+}
+
+/* fadeY-transform */
+.fadeY-transform-leave-active,
+.fadeY-transform-enter-active {
+  transition: all 0.5s;
+}
+
+.fadeY-transform-enter {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.fadeY-transform-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+/* message-list */
+.message-list-leave-active {
+  position: absolute;
+}
+
+// .message-list-leave-to {
+//   z-index: -1;
+// }
+
+.message-list-enter,
+.message-list-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+// .message-list-enter-active,
+// .message-list-leave-active,
+// .message-list-move {
+//   transition: all 0.8s;
+// }

@@ -1,0 +1,46 @@
+// mixin
+@mixin circular($diameter, $backgroundColor: transparent) {
+  width: #{$diameter};
+  height: #{$diameter};
+  border-radius: 50%;
+  background: #{$backgroundColor};
+}
+
+@mixin container($width, $height, $backgroundColor: transparent) {
+  width: calc(#{$width});
+  height: calc(#{$height});
+  background: #{$backgroundColor};
+}
+
+@mixin font($font-size, $color, $font-weight: 400) {
+  font-size: #{$font-size + 'px'};
+  color: #{$color};
+  font-weight: #{$font-weight};
+}
+
+@mixin colorBtn($color) {
+  background: $color;
+
+  &:hover {
+    color: $color;
+
+    &::before,
+    &::after {
+      background: $color;
+    }
+  }
+}
+
+.text-overflow {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.hover {
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}

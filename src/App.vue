@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <!-- <router-link to="/">Home</router-link>
-      <router-link v-for="page in pageNames" :key="page" :to="`/${page}`">/{{ page }}</router-link> -->
-      <!-- <router-link to="/attendance-report">考勤报表</router-link> -->
+      <router-link to="/">Home</router-link>
+      <router-link v-for="page in pageNames" :key="page" :to="`/${page}`">/{{ page }}</router-link>
+    </div>
+
+    <!-- <div id="nav">
       <a
         href="javascript:void(0);"
         v-for="page in pageNames"
@@ -12,12 +14,13 @@
         >{{ page }}</a
       >
     </div>
-    <!-- <router-view /> -->
     <iframe
       v-if="currentPage"
       :src="`./${currentPage}.html?foo=bar`"
       frameborder="0"
-      class="w-screen h-screen"></iframe>
+      class="w-screen h-screen"></iframe> -->
+
+    <!-- <router-view /> -->
   </div>
 </template>
 
@@ -35,7 +38,7 @@
   }
 </script>
 
-<style lang="less">
+<style lang="scss">
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

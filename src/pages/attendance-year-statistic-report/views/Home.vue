@@ -40,13 +40,16 @@
       clickStatistic(index) {
         switch (index) {
           case 1:
-            window.location.href = './attendance-month-statistic-search.html'
+            window.location.href =
+              process.env.VUE_APP_PUBLIC_PATH + 'attendance-month-statistic-search.html'
             break
           case 2:
-            window.location.href = './attendance-month-statistic-class-search.html'
+            window.location.href =
+              process.env.VUE_APP_PUBLIC_PATH + 'attendance-month-statistic-class-search.html'
             break
           case 3:
-            window.location.href = './attendance-year-statistic-search.html'
+            window.location.href =
+              process.env.VUE_APP_PUBLIC_PATH + 'attendance-year-statistic-search.html'
             break
           default:
             break
