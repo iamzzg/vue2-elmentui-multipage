@@ -2,7 +2,10 @@
   <el-drawer title="學生詳細" v-bind="$attrs" v-on="$listeners" :size="440" @open="handleOpen">
     <section class="p-20px" v-if="infoObj">
       <div class="flex">
-        <cn6-image style="width: 130px; height: 130px" class="round"></cn6-image>
+        <cn6-image
+          :user-id="studentId"
+          style="width: 130px; height: 130px"
+          class="round"></cn6-image>
         <div class="ml-20px">
           <div>
             <span class="text-20px font-bold text-333">{{ infoObj.userinfo?.name }}</span>

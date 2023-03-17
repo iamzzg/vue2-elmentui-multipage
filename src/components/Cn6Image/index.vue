@@ -26,9 +26,15 @@
     },
     computed: {
       realSrc() {
-        return process.env.VUE_APP_UPLOAD_URL + this.src
-          ? this.src
-          : '/app/parent/img/render-' + this.userId
+        console.log(
+          process.env.VUE_APP_UPLOAD_URL + this.src
+            ? this.src
+            : '/app/parent/img/render-' + this.userId
+        )
+        return (
+          process.env.VUE_APP_UPLOAD_URL +
+          (this.src ? this.src : '/app/parent/img/render-' + this.userId)
+        )
       }
     }
   }

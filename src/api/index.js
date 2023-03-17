@@ -81,3 +81,14 @@ export function updateParentInfo(data) {
     }
   })
 }
+
+export function exportStudentMonthReport(data) {
+  return request({
+    url: '/attendancereport/export/studentMonthReport',
+    method: 'post',
+    data: data,
+    headers: {
+      responseTye: 'arraybuffer'
+    }
+  })
+}

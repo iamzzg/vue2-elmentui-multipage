@@ -12,7 +12,12 @@
         <div class="text-18px ml-auto">{{ `${routeQuery.start}~${routeQuery.end}` }}</div>
         <el-divider direction="vertical" class="mx-30px"></el-divider>
         <span class="text-18px mr-20px">學生：{{ tableData.length }}</span>
-        <el-button type="info" round class="ml-50px" style="color: #333; background-color: #fff"
+        <el-button
+          type="info"
+          round
+          class="ml-50px"
+          style="color: #333; background-color: #fff"
+          @click="exportExcel"
           >導出Excel</el-button
         >
       </div>
@@ -63,8 +68,9 @@
   import StudentDetailsDrawer from '@/business-components/StudentDetailsDrawer/StudentDetailsDrawer.vue'
   import dayjs from 'dayjs'
   import qs from 'qs'
-  import { getStudentMonthReport } from '@/api/index'
+  import { getStudentMonthReport, exportStudentMonthReport } from '@/api/index'
   import { changeLocationHref, getLocationSearchObject } from '@/utils/location'
+  import { useDownLoad } from '@/utils'
 
   export default {
     name: 'Home',
@@ -92,12 +98,6 @@
     methods: {
       // 請求數據
       async getReportData() {
-        // const dataBody = {
-        //   classInfoIds: '402880d17f0c0c13017f24bb0912000a',
-        //   start: '2023-03-01',
-        //   end: '2023-03-14',
-        //   attendanceTypes: 'ontime;belate;early;leave;absent;'
-        // }
         const { data } = await getStudentMonthReport(this.routeQuery).catch(console.log)
 
         this.columns = this.generateColumns(data)
@@ -151,6 +151,10 @@
       },
       back() {
         changeLocationHref('attendance-month-statistic-search.html', this.routeQuery)
+      },
+      async exportExcel() {
+        const res = await exportStudentMonthReport(this.routeQuery)
+        useDownLoad(res)
       }
     },
     watch: {
