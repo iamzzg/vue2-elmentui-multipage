@@ -1,8 +1,8 @@
 <template>
   <el-image v-bind="$attrs" :src="realSrc">
     <template #error>
-      <div class="w-full h-full flex-center">
-        <i class="el-icon-picture-outline text-20px"></i>
+      <div class="w-full h-full flex justify-center items-center">
+        <el-image :src="require('@/assets/images/u-avatar.png')"></el-image>
       </div>
     </template>
   </el-image>
@@ -26,7 +26,9 @@
     },
     computed: {
       realSrc() {
-        return this.src ? this.src : '/app/parent/img/render-' + this.userId
+        return process.env.VUE_APP_UPLOAD_URL + this.src
+          ? this.src
+          : '/app/parent/img/render-' + this.userId
       }
     }
   }

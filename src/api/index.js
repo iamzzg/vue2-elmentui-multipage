@@ -50,3 +50,34 @@ export function changeInschool(data) {
     data: data
   })
 }
+
+//上传图片
+export function imgUpload(data) {
+  return request({
+    url: process.env.VUE_APP_UPLOAD_PREFIX,
+    method: 'post',
+    data: data
+  })
+}
+//修改学生
+export function updateStudentInfo(data) {
+  return request({
+    url: '/user/updateStudentInfo',
+    method: 'post',
+    data: data,
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}
+//修改学生
+export function updateParentInfo(data) {
+  return request({
+    url: '/user/updateParentInfo',
+    method: 'post',
+    data: data,
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}

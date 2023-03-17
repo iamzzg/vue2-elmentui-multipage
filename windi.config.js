@@ -1,7 +1,5 @@
 const scssColors = require('./getColors')
 
-console.dir(scssColors)
-
 // 迁移颜色
 const customeColors = {
   111: '#111',

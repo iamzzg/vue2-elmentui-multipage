@@ -97,8 +97,8 @@
         }
         const { massage, status } = await changeInschool(data)
 
-        this.$message(massage)
-        if (status == 200) {
+        // this.$message(massage)
+        if (status == 1) {
           this.dialogVisible = false
           this.$emit('update')
         }

@@ -48,7 +48,12 @@
               <svg-icon
                 icon-class="edit"
                 class="text-20px mr-3 text-333 cursor-pointer"
-                @click="clickEditParent(item.parentinfo_Userinfo_Key.parent)"></svg-icon>
+                @click="
+                  clickEditParent(
+                    item.parentinfo_Userinfo_Key.parent,
+                    item.parentinfo_Userinfo_Key.student.student_num
+                  )
+                "></svg-icon>
             </div>
             <div class="flex items-center">
               <i class="el-icon-phone-outline"></i>
@@ -144,7 +149,10 @@
       :visible.sync="editStudentStatusVisible"
       :info="infoObj.userinfo"
       @update="onUpdateStatus"></EditStudentStatusDialog>
-    <EditParentDialog :visible.sync="eidtParentVisible" :info="parentInfo"></EditParentDialog>
+    <EditParentDialog
+      :visible.sync="eidtParentVisible"
+      :info="parentInfo"
+      @update="onUpdateStatus"></EditParentDialog>
   </el-drawer>
 </template>
 <script>
@@ -203,8 +211,8 @@
               res.push({
                 timestamp: dayout.format('HH:mm'),
                 parent: {
-                  name: item.out_parent.name,
-                  family_relations: item.out_parent.family_relations
+                  name: item.out_parent?.name,
+                  family_relations: item.out_parent?.family_relations
                 },
                 leaveEarly: item.is_leaveEarly_a > 0 || item.is_leaveEarly_b > 0 ? 1 : 0,
                 leaveReason: item.leaveReasonOne || item.leaveReasonTwo
@@ -222,8 +230,9 @@
       ClickEditStudent() {
         this.editStudentInfoVisible = true
       },
-      clickEditParent(parentInfo) {
+      clickEditParent(parentInfo, student_num) {
         this.parentInfo = parentInfo
+        this.parentInfo.student_num = student_num
         this.eidtParentVisible = true
       }
     }

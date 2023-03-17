@@ -54,7 +54,7 @@ module.exports = {
         },
         // 转发请求时设置cookie
         onProxyReq(proxyReq) {
-          proxyReq.setHeader('cookie', 'JSESSIONID=716EF6A3C077848239EF69AD0FD8F0BD')
+          proxyReq.setHeader('cookie', 'JSESSIONID=5F23F2CDF31EFDBAF68FC865BCF684BC')
         }
       }
     }

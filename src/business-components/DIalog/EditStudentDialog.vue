@@ -12,8 +12,10 @@
     <main class="flex">
       <div
         class="w-250px h-300px flex flex-col justify-center items-center border border-999 rounded-2xl mr-10px">
-        <cn6-image class="w-150px h-150px"></cn6-image>
-        <el-button round type="primary">上传图片</el-button>
+        <cn6-image :src="avatar" class="w-150px h-150px"></cn6-image>
+        <upload @onFile="onReadFile">
+          <el-button round type="primary" class="mt-10px">上传图片</el-button>
+        </upload>
       </div>
       <div class="min-w-600px flex-1">
         <el-form :model="form" :rules="rules" ref="formRef" label-position="top">
@@ -79,14 +81,15 @@
       </div>
     </main>
     <span slot="footer" class="dialog-footer">
-      <el-button round type="primary" @click="dialogVisible = false">确 定</el-button>
+      <el-button round type="primary" @click="clickSave">确 定</el-button>
       <el-button round @click="dialogVisible = false">取 消</el-button>
     </span>
   </el-dialog>
 </template>
 <script>
   import { genderList } from '@/constant'
-  import { getClassInfoList } from '@/api'
+  import { getClassInfoList, updateStudentInfo, imgUpload } from '@/api'
+  import { Form } from 'element-ui'
   export default {
     name: '',
     components: {},
@@ -100,6 +103,8 @@
         class: []
       })
       return {
+        avatar: '',
+        avatarFile: '',
         form: {
           nickname: '',
           cardNum: '',
@@ -163,17 +168,36 @@
         }
       },
       async clickSave() {
-        // const data = {
-        //   stuid: this.info.uid,
-        //   in_school: this.form.status,
-        //   changetime: dayjs(this.form.statusTime).format('HH:mm:ss')
-        // }
-        // const { massage, status } = await changeInschool(data)
-        // this.$message(massage)
-        // if (status == 200) {
-        //   this.dialogVisible = false
-        //   this.$emit('update')
-        // }
+        const data = {
+          uid: this.info.uid,
+          name: this.form.nickname,
+          student_num: this.form.cardNum,
+          sex: this.form.gender,
+          birthday: this.form.birthday,
+          join_date: this.form.inSchoolTime
+        }
+
+        await updateStudentInfo(data).catch(console.log)
+
+        const formData = new FormData()
+        formData.append('file', this.avatarFile)
+        formData.append('id', this.form.cardNum)
+        formData.append('flag', '1-1')
+
+        await imgUpload(formData)
+
+        this.$message('修改成功')
+        this.dialogVisible = false
+        this.$emit('update')
+      },
+      onReadFile(imgFile) {
+        this.avatarFile = imgFile
+        const reader = new FileReader()
+        reader.readAsDataURL(imgFile)
+
+        reader.addEventListener('load', () => {
+          this.avatar = reader.result
+        })
       }
     },
     mounted() {

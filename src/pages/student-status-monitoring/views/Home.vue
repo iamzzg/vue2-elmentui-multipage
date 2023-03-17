@@ -113,7 +113,8 @@
 
     <student-details-drawer
       :visible.sync="studentDrawer"
-      :student-id="selectedStudentId"></student-details-drawer>
+      :student-id="selectedStudentId"
+      @updateData="fetchClassStudentList"></student-details-drawer>
   </div>
 </template>
 
